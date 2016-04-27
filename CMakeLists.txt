@@ -70,3 +70,5 @@ message("CXX Flags: ${CMAKE_CXX_FLAGS}")
 
 add_executable(${EXECUTABLE_NAME} ${chex_SOURCES} ${chex_HEADERS})
 target_link_libraries(${EXECUTABLE_NAME} ${LIBS})
+
+install (TARGETS ${EXECUTABLE_NAME} DESTINATION bin)
