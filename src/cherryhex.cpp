@@ -75,7 +75,7 @@ int main(int argc, char *argv[]) {
 	}
 	
 	const size_t bufferSize = text.size() / 2;
-	auto outBuffer = std::make_unique<uint8_t[]>(bufferSize);
+	auto outBuffer = std::unique_ptr<uint8_t[]>(new uint8_t[bufferSize]);
 
 	for(size_t i = 0; i < text.size(); i += 2) {
 		const uint8_t iVal = std::stoul(text.substr(i, 2), nullptr, 16);
