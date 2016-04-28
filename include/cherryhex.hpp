@@ -25,75 +25,27 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <sstream>
-#include <algorithm>
+#ifndef INCLUDE_CHERRYHEX_HPP_
+#define INCLUDE_CHERRYHEX_HPP_
+
+#include <cstdint>
+
 #include <fstream>
-#include <iostream>
+#include <string>
+#include <vector>
 
 namespace cherryhex {
 
-std::vector<uint8_t> ascii_to_binary(const std::string &asciiHexString, bool bigEndian) {
-	std::vector<uint8_t> ret;
-
-	const size_t bufferSize = asciiHexString.size() / 2;
-
-	ret.resize(bufferSize);
-
-	for (size_t i = 0; i < asciiHexString.size(); i += 2) {
-		const uint8_t iVal = std::stoul(asciiHexString.substr(i, 2), nullptr, 16);
-		//std::cout << iVal << "\n";
-		ret[i / 2] = iVal;
-	}
-
-	if (!bigEndian) {
-		for (size_t i = 0; i < bufferSize; i += 4) {
-			const uint8_t temp1 = ret[i];
-			const uint8_t temp2 = ret[i + 1];
-
-			ret[i + 0] = ret[i + 3];
-			ret[i + 1] = ret[i + 2];
-
-			ret[i + 2] = temp2;
-			ret[i + 3] = temp1;
-		}
-	}
-
-	return ret;
-}
+std::vector<uint8_t> ascii_to_binary(const std::string &asciiHexString, bool bigEndian = false);
 
 namespace util {
 
-void remove_comments(std::string &str) {
-	while (true) {
-		const size_t pos = str.find_first_of('#');
+std::string file_to_string(const std::string &fileName);
+void remove_spaces(std::string &str);
+void remove_comments(std::string &str);
 
-		if (pos == str.npos) {
-			break;
-		}
-
-		const size_t lfPos = str.find_first_of('\n', pos);
-
-		str.erase(pos, lfPos - pos);
-	}
-}
-
-void remove_spaces(std::string &str) {
-	str.erase(std::remove_if(str.begin(), str.end(), ::isspace), str.end());
-}
-
-std::string file_to_string(const std::string &fileName) {
-	std::ifstream fin(fileName, std::ios::in);
-
-	if (!fin) {
-		return "";
-	}
-
-	std::stringstream ss;
-	ss << fin.rdbuf();
-
-	return ss.str();
 }
 
 }
-}
 
+#endif /* INCLUDE_CHERRYHEX_HPP_ */
