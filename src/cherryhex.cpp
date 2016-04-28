@@ -86,7 +86,15 @@ int main(int argc, char *argv[]) {
 	std::cout << "Writing " << bufferSize << " bytes to " << outFileName << std::endl;
 
 	std::ofstream of(outFileName, std::ios::out | std::ios::binary | std::ios::trunc);
-	of.write(reinterpret_cast<char*>(outBuffer.get()), bufferSize);
+	
+	// write little endian
+	for(size_t i = 0; i < bufferSize; i += 4) {
+		for(int j = 3; j >= 0; --j) {
+			of.write(reinterpret_cast<char*>(outBuffer.get() + (i+j)), 1);
+		}
+	}
+	
+	// of.write(reinterpret_cast<char*>(outBuffer.get()), bufferSize); // big endian
 
 	return EXIT_SUCCESS;
 }
