@@ -65,7 +65,8 @@ int main(int argc, char *argv[]) {
 	
 	remove_comments(text);
 	text.erase(std::remove_if(text.begin(), text.end(), ::isspace), text.end());
-
+	std::transform(text.begin(), text.end(), text.begin(), ::tolower);
+	
 	std::cout << text << std::endl;
 
 	if(text.size() % 2 != 0) {
@@ -97,8 +98,6 @@ void remove_comments(std::string &str) {
 		if(pos == str.npos) {
 			break;
 		}
-
-		std::cout << "pos = " << pos << std::endl;
 
 		const size_t lfPos = str.find_first_of('\n', pos);
 
