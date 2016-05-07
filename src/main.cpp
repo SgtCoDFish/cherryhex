@@ -129,6 +129,6 @@ void print_usage() {
 	        << "Convert a file containing big-endian formatted ASCII hex (and comment lines marked with #) into a raw binary file of 32 bit integers.\n\n" //
 	        << "Options\n-------\n\n" //
 	        << "-v, --help - Display this message and exit.\n" //
-	        << "-o <filename> - Output to <filename> instead of the default of appending .bin" //
+	        << "-o <filename> - Output to <filename> instead of the default of appending .bin\n" //
 	        << "-b, --big-endian - Output the file in big endian format (default is little endian)" << std::endl;
 }
