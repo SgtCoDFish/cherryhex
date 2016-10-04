@@ -42,7 +42,6 @@ std::vector<uint8_t> ascii_to_binary(const std::string &asciiHexString, bool big
 
 	for (size_t i = 0; i < asciiHexString.size(); i += 2) {
 		const uint8_t iVal = std::stoul(asciiHexString.substr(i, 2), nullptr, 16);
-		//std::cout << iVal << "\n";
 		ret[i / 2] = iVal;
 	}
 
